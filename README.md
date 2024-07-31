@@ -1,6 +1,4 @@
-Claro, aqui está o README atualizado com as instruções corretas para configurar o `ormconfig.json`:
 
----
 
 # API Locadora
 
@@ -13,7 +11,7 @@ Este projeto é uma API para gerenciar uma locadora de filmes, incluindo funcion
 - **TypeORM**: ORM (Object-Relational Mapper) para TypeScript e JavaScript.
 - **MySQL**: Sistema de gerenciamento de banco de dados relacional.
 - **Express**: Framework para construção de APIs em Node.js.
-
+- **MVC Architecture**: Arquitetura de sistema seguindo oo modelo :Model-View-Controller 
 ## Configuração do Projeto
 
 ### Pré-requisitos
@@ -105,9 +103,6 @@ Aqui estão algumas das rotas disponíveis na API:
 - `PUT /customers/:id` - Atualiza um cliente existente pelo ID.
 - `DELETE /customers/:id` - Remove um cliente pelo ID.
 
-## Contribuição
-
-Se você quiser contribuir para o projeto, fique à vontade para fazer um fork do repositório e enviar pull requests. Qualquer contribuição é bem-vinda!
 
 ## Licença
 
@@ -115,4 +110,3 @@ Este projeto é licenciado sob a [MIT License](LICENSE).
 
 ---
 
-Sinta-se à vontade para ajustar qualquer parte do README conforme necessário para corresponder às especificidades do seu projeto.
