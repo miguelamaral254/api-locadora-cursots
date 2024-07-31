@@ -10,15 +10,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Rental = void 0;
+// src/models/Rental.ts
 const typeorm_1 = require("typeorm");
 const Movie_1 = require("./Movie");
+const customer_1 = require("./customer");
 let Rental = class Rental {
-    constructor(movie, clientId, rentalDate, returnDate) {
+    constructor(movie, customer, rentalDate, returnDate) {
         if (movie) {
             this.movie = movie;
         }
-        if (clientId) {
-            this.clientId = clientId;
+        if (customer) {
+            this.customer = customer;
         }
         if (rentalDate) {
             this.rentalDate = rentalDate;
@@ -39,9 +41,10 @@ __decorate([
     __metadata("design:type", Movie_1.Movie)
 ], Rental.prototype, "movie", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Number)
-], Rental.prototype, "clientId", void 0);
+    (0, typeorm_1.ManyToOne)(() => customer_1.Customer, customer => customer.rentals),
+    (0, typeorm_1.JoinColumn)({ name: 'customerId' }),
+    __metadata("design:type", customer_1.Customer)
+], Rental.prototype, "customer", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -52,5 +55,5 @@ __decorate([
 ], Rental.prototype, "returnDate", void 0);
 exports.Rental = Rental = __decorate([
     (0, typeorm_1.Entity)(),
-    __metadata("design:paramtypes", [Movie_1.Movie, Number, String, String])
+    __metadata("design:paramtypes", [Movie_1.Movie, customer_1.Customer, String, String])
 ], Rental);

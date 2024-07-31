@@ -13,36 +13,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteRental = exports.updateRental = exports.createRental = exports.getRentalById = exports.getAllRentals = void 0;
-const data_source_1 = __importDefault(require("../data-source")); // Certifique-se de que o caminho está correto
+const data_source_1 = __importDefault(require("../data-source"));
 const Rental_1 = require("../models/Rental");
+const customer_1 = require("../models/customer");
+const Movie_1 = require("../models/Movie");
 const getRentalRepository = () => data_source_1.default.getRepository(Rental_1.Rental);
+const getCustomerRepository = () => data_source_1.default.getRepository(customer_1.Customer);
+const getMovieRepository = () => data_source_1.default.getRepository(Movie_1.Movie);
 const getAllRentals = () => __awaiter(void 0, void 0, void 0, function* () {
     const rentalRepository = getRentalRepository();
-    return yield rentalRepository.find({ relations: ['movie'] });
+    return yield rentalRepository.find({ relations: ['movie', 'customer'] });
 });
 exports.getAllRentals = getAllRentals;
 const getRentalById = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const rentalRepository = getRentalRepository();
-    return yield rentalRepository.findOne({ where: { id }, relations: ['movie'] });
+    return yield rentalRepository.findOne({ where: { id }, relations: ['movie', 'customer'] });
 });
 exports.getRentalById = getRentalById;
-const createRental = (movieId, clientId, rentalDate, returnDate) => __awaiter(void 0, void 0, void 0, function* () {
+const createRental = (movieId, customerId, rentalDate, returnDate) => __awaiter(void 0, void 0, void 0, function* () {
     const rentalRepository = getRentalRepository();
+    const movieRepository = getMovieRepository();
+    const customerRepository = getCustomerRepository();
+    const movie = yield movieRepository.findOne({ where: { id: movieId } });
+    const customer = yield customerRepository.findOne({ where: { id: customerId } });
+    if (!movie || !customer) {
+        throw new Error('Movie or Customer not found');
+    }
     const rental = new Rental_1.Rental();
-    rental.movie = { id: movieId }; // Temporário para associar filme
-    rental.clientId = clientId;
+    rental.movie = movie;
+    rental.customer = customer;
     rental.rentalDate = rentalDate;
     rental.returnDate = returnDate;
     return yield rentalRepository.save(rental);
 });
 exports.createRental = createRental;
-const updateRental = (id, movieId, clientId, rentalDate, returnDate) => __awaiter(void 0, void 0, void 0, function* () {
+const updateRental = (id, movieId, customerId, rentalDate, returnDate) => __awaiter(void 0, void 0, void 0, function* () {
     const rentalRepository = getRentalRepository();
+    const movieRepository = getMovieRepository();
+    const customerRepository = getCustomerRepository();
     const rental = yield rentalRepository.findOne({ where: { id } });
-    if (!rental)
+    const movie = yield movieRepository.findOne({ where: { id: movieId } });
+    const customer = yield customerRepository.findOne({ where: { id: customerId } });
+    if (!rental || !movie || !customer) {
         return null;
-    rental.movie = { id: movieId };
-    rental.clientId = clientId;
+    }
+    rental.movie = movie;
+    rental.customer = customer;
     rental.rentalDate = rentalDate;
     rental.returnDate = returnDate;
     return yield rentalRepository.save(rental);

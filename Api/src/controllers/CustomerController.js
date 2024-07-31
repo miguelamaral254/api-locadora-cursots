@@ -32,78 +32,78 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteRental = exports.updateRental = exports.createRental = exports.getRentalById = exports.getAllRentals = void 0;
-const rentalService = __importStar(require("../services/RentalService"));
-const getAllRentals = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.deleteCustomer = exports.updateCustomer = exports.createCustomer = exports.getCustomerById = exports.getAllCustomers = void 0;
+const customerService = __importStar(require("../services/CustomerService"));
+const getAllCustomers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const rentals = yield rentalService.getAllRentals();
-        res.json(rentals);
+        const customers = yield customerService.getAllCustomers();
+        res.json(customers);
     }
     catch (error) {
         res.status(500).send('An error occurred');
     }
 });
-exports.getAllRentals = getAllRentals;
-const getRentalById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getAllCustomers = getAllCustomers;
+const getCustomerById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const rental = yield rentalService.getRentalById(Number(req.params.id));
-        if (rental) {
-            res.json(rental);
+        const customer = yield customerService.getCustomerById(Number(req.params.id));
+        if (customer) {
+            res.json(customer);
         }
         else {
-            res.status(404).send('Rental not found');
+            res.status(404).send('Customer not found');
         }
     }
     catch (error) {
         res.status(500).send('An error occurred');
     }
 });
-exports.getRentalById = getRentalById;
-const createRental = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.getCustomerById = getCustomerById;
+const createCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { movieId, customerId, rentalDate, returnDate } = req.body;
-        if (!movieId || !customerId || !rentalDate || !returnDate) {
+        const { name, email, phone } = req.body;
+        if (!name || !email || !phone) {
             return res.status(400).send('All fields are required');
         }
-        const newRental = yield rentalService.createRental(movieId, customerId, rentalDate, returnDate);
-        res.status(201).json(newRental);
+        const newCustomer = yield customerService.createCustomer(name, email, phone);
+        res.status(201).json(newCustomer);
     }
     catch (error) {
         res.status(500).send('An error occurred');
     }
 });
-exports.createRental = createRental;
-const updateRental = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.createCustomer = createCustomer;
+const updateCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { movieId, customerId, rentalDate, returnDate } = req.body;
-        if (!movieId || !customerId || !rentalDate || !returnDate) {
+        const { name, email, phone } = req.body;
+        if (!name || !email || !phone) {
             return res.status(400).send('All fields are required');
         }
-        const updatedRental = yield rentalService.updateRental(Number(req.params.id), movieId, customerId, rentalDate, returnDate);
-        if (updatedRental) {
-            res.json(updatedRental);
+        const updatedCustomer = yield customerService.updateCustomer(Number(req.params.id), name, email, phone);
+        if (updatedCustomer) {
+            res.json(updatedCustomer);
         }
         else {
-            res.status(404).send('Rental not found');
+            res.status(404).send('Customer not found');
         }
     }
     catch (error) {
         res.status(500).send('An error occurred');
     }
 });
-exports.updateRental = updateRental;
-const deleteRental = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+exports.updateCustomer = updateCustomer;
+const deleteCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const result = yield rentalService.deleteRental(Number(req.params.id));
+        const result = yield customerService.deleteCustomer(Number(req.params.id));
         if (result.affected && result.affected > 0) {
             res.status(204).send();
         }
         else {
-            res.status(404).send('Rental not found');
+            res.status(404).send('Customer not found');
         }
     }
     catch (error) {
         res.status(500).send('An error occurred');
     }
 });
-exports.deleteRental = deleteRental;
+exports.deleteCustomer = deleteCustomer;

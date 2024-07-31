@@ -1,5 +1,7 @@
+// src/models/Rental.ts
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Movie } from './Movie';
+import { Customer } from './customer';
 
 @Entity()
 export class Rental {
@@ -10,8 +12,9 @@ export class Rental {
   @JoinColumn({ name: 'movieId' })
   movie!: Movie;
 
-  @Column()
-  clientId!: number;
+  @ManyToOne(() => Customer, customer => customer.rentals)
+  @JoinColumn({ name: 'customerId' })
+  customer!: Customer;
 
   @Column()
   rentalDate!: string;
@@ -19,12 +22,12 @@ export class Rental {
   @Column()
   returnDate!: string;
 
-  constructor(movie?: Movie, clientId?: number, rentalDate?: string, returnDate?: string) {
+  constructor(movie?: Movie, customer?: Customer, rentalDate?: string, returnDate?: string) {
     if (movie) {
       this.movie = movie;
     }
-    if (clientId) {
-      this.clientId = clientId;
+    if (customer) {
+      this.customer = customer;
     }
     if (rentalDate) {
       this.rentalDate = rentalDate;

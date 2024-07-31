@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { Movie } from './models/Movie';
 import { Rental } from './models/Rental';
 import { Genre } from './models/Genre';
+import { Customer } from './models/customer';
 
 const AppDataSource = new DataSource({
   type: 'mysql',
@@ -11,7 +12,7 @@ const AppDataSource = new DataSource({
   username: 'miguel',
   password: '32412294',
   database: 'locadora',
-  entities: [Movie, Rental, Genre],
+  entities: [Movie, Rental, Genre, Customer],
   synchronize: true, 
   //logging: true,
 });

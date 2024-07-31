@@ -22,28 +22,39 @@ import {
   updateRental, 
   deleteRental 
 } from '../controllers/RentalController';
-
+import { 
+  getAllCustomers, 
+  getCustomerById, 
+  createCustomer, 
+  updateCustomer, 
+  deleteCustomer 
+} from '../controllers/CustomerController';
 const router = Router();
 
-// Genre routes
+// Genre 
 router.get('/genres', getAllGenres);
 router.get('/genres/:id', getGenreById);
 router.post('/genres', createGenre);
 router.put('/genres/:id', updateGenre);
 router.delete('/genres/:id', deleteGenre);
 
-// Movie routes
+// Movie 
 router.get('/movies', getAllMovies);
 router.get('/movies/:id', getMovieById);
 router.post('/movies', createMovie);
 router.put('/movies/:id', updateMovie);
 router.delete('/movies/:id', deleteMovie);
 
-// Rental routes
+// Rental 
 router.get('/rentals', getAllRentals);
 router.get('/rentals/:id', getRentalById);
 router.post('/rentals', createRental);
 router.put('/rentals/:id', updateRental);
 router.delete('/rentals/:id', deleteRental);
-
+// Customer
+router.get('/customers', getAllCustomers);
+router.get('/customers/:id', getCustomerById);
+router.post('/customers', createCustomer);
+router.put('/customers/:id', updateCustomer);
+router.delete('/customers/:id', deleteCustomer);
 export default router;

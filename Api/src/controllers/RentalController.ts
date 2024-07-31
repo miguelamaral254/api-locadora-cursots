@@ -2,14 +2,6 @@ import { Request, Response } from 'express';
 import * as rentalService from '../services/RentalService';
 
 export const getAllRentals = async (req: Request, res: Response) => {
-    try {
-      const rentals = await rentalService.getAllRentals();
-      res.json(rentals);
-    } catch (error) {
-      res.status(500).send('An error occurred');
-    }
-  };
-export const getRentals = async (req: Request, res: Response) => {
   try {
     const rentals = await rentalService.getAllRentals();
     res.json(rentals);
@@ -62,14 +54,14 @@ export const updateRental = async (req: Request, res: Response) => {
 };
 
 export const deleteRental = async (req: Request, res: Response) => {
-    try {
-      const result = await rentalService.deleteRental(Number(req.params.id));
-      if (result.affected && result.affected > 0) { 
-        res.status(204).send();
-      } else {
-        res.status(404).send('Rental not found');
-      }
-    } catch (error) {
-      res.status(500).send('An error occurred');
+  try {
+    const result = await rentalService.deleteRental(Number(req.params.id));
+    if (result.affected && result.affected > 0) {
+      res.status(204).send();
+    } else {
+      res.status(404).send('Rental not found');
     }
-  };
+  } catch (error) {
+    res.status(500).send('An error occurred');
+  }
+};
