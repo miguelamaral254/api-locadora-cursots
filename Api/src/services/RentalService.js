@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteRental = exports.updateRental = exports.createRental = exports.getRentalById = exports.getAllRentals = void 0;
-const typeorm_1 = require("typeorm");
+const data_source_1 = __importDefault(require("../data-source")); // Certifique-se de que o caminho está correto
 const Rental_1 = require("../models/Rental");
-const getRentalRepository = () => (0, typeorm_1.getRepository)(Rental_1.Rental);
+const getRentalRepository = () => data_source_1.default.getRepository(Rental_1.Rental);
 const getAllRentals = () => __awaiter(void 0, void 0, void 0, function* () {
     const rentalRepository = getRentalRepository();
     return yield rentalRepository.find({ relations: ['movie'] });
@@ -46,7 +49,7 @@ const updateRental = (id, movieId, clientId, rentalDate, returnDate) => __awaite
 });
 exports.updateRental = updateRental;
 const deleteRental = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const rentalRepository = (0, typeorm_1.getRepository)(Rental_1.Rental);
+    const rentalRepository = getRentalRepository();
     return yield rentalRepository.delete(id);
 });
 exports.deleteRental = deleteRental;

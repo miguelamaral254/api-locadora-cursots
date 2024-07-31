@@ -1,7 +1,8 @@
-import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
+import AppDataSource from '../data-source'; // Certifique-se de que o caminho está correto
 import { Rental } from '../models/Rental';
 
-const getRentalRepository = (): Repository<Rental> => getRepository(Rental);
+const getRentalRepository = (): Repository<Rental> => AppDataSource.getRepository(Rental);
 
 export const getAllRentals = async () => {
   const rentalRepository = getRentalRepository();
@@ -35,6 +36,6 @@ export const updateRental = async (id: number, movieId: number, clientId: number
 };
 
 export const deleteRental = async (id: number): Promise<DeleteResult> => {
-    const rentalRepository = getRepository(Rental);
-    return await rentalRepository.delete(id);
-  };
+  const rentalRepository = getRentalRepository();
+  return await rentalRepository.delete(id);
+};

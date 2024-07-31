@@ -1,7 +1,8 @@
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import AppDataSource from '../data-source';
 import { Movie } from '../models/Movie';
 
-const getMovieRepository = (): Repository<Movie> => getRepository(Movie);
+const getMovieRepository = (): Repository<Movie> => AppDataSource.getRepository(Movie);
 
 export const getAllMovies = async () => {
   const movieRepository = getMovieRepository();
@@ -32,9 +33,8 @@ export const updateMovie = async (id: number, title: string, genreId: number, re
   return await movieRepository.save(movie);
 };
 
-
 export const deleteMovie = async (id: number) => {
-    const movieRepository = getRepository(Movie);
-    const result = await movieRepository.delete(id);
-    return result; 
-  };
+  const movieRepository = getMovieRepository();
+  const result = await movieRepository.delete(id);
+  return result; 
+};

@@ -1,4 +1,4 @@
-// src/data-source.ts
+
 import { DataSource } from 'typeorm';
 import { Movie } from './models/Movie';
 import { Rental } from './models/Rental';
@@ -13,6 +13,7 @@ const AppDataSource = new DataSource({
   database: 'locadora',
   entities: [Movie, Rental, Genre],
   synchronize: true, 
+  //logging: true,
 });
 
 export default AppDataSource;

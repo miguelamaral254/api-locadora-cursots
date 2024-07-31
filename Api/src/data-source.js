@@ -1,6 +1,5 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-// src/data-source.ts
 const typeorm_1 = require("typeorm");
 const Movie_1 = require("./models/Movie");
 const Rental_1 = require("./models/Rental");
@@ -14,5 +13,6 @@ const AppDataSource = new typeorm_1.DataSource({
     database: 'locadora',
     entities: [Movie_1.Movie, Rental_1.Rental, Genre_1.Genre],
     synchronize: true,
+    //logging: true,
 });
 exports.default = AppDataSource;

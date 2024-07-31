@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteGenre = exports.updateGenre = exports.createGenre = exports.getGenreById = exports.getAllGenres = void 0;
-const typeorm_1 = require("typeorm");
+const data_source_1 = __importDefault(require("../data-source")); // Certifique-se de que o caminho está correto
 const Genre_1 = require("../models/Genre");
-const getGenreRepository = () => (0, typeorm_1.getRepository)(Genre_1.Genre);
+const getGenreRepository = () => data_source_1.default.getRepository(Genre_1.Genre);
 const getAllGenres = () => __awaiter(void 0, void 0, void 0, function* () {
     const genreRepository = getGenreRepository();
     return yield genreRepository.find();
@@ -40,7 +43,7 @@ const updateGenre = (id, name) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.updateGenre = updateGenre;
 const deleteGenre = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const genreRepository = (0, typeorm_1.getRepository)(Genre_1.Genre);
+    const genreRepository = getGenreRepository();
     const result = yield genreRepository.delete(id);
     return result;
 });

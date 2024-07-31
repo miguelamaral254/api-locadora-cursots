@@ -8,11 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteMovie = exports.updateMovie = exports.createMovie = exports.getMovieById = exports.getAllMovies = void 0;
-const typeorm_1 = require("typeorm");
+const data_source_1 = __importDefault(require("../data-source"));
 const Movie_1 = require("../models/Movie");
-const getMovieRepository = () => (0, typeorm_1.getRepository)(Movie_1.Movie);
+const getMovieRepository = () => data_source_1.default.getRepository(Movie_1.Movie);
 const getAllMovies = () => __awaiter(void 0, void 0, void 0, function* () {
     const movieRepository = getMovieRepository();
     return yield movieRepository.find();
@@ -44,7 +47,7 @@ const updateMovie = (id, title, genreId, releaseDate) => __awaiter(void 0, void 
 });
 exports.updateMovie = updateMovie;
 const deleteMovie = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const movieRepository = (0, typeorm_1.getRepository)(Movie_1.Movie);
+    const movieRepository = getMovieRepository();
     const result = yield movieRepository.delete(id);
     return result;
 });

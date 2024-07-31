@@ -1,7 +1,8 @@
-import { getRepository, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
+import AppDataSource from '../data-source'; // Certifique-se de que o caminho está correto
 import { Genre } from '../models/Genre';
 
-const getGenreRepository = (): Repository<Genre> => getRepository(Genre);
+const getGenreRepository = (): Repository<Genre> => AppDataSource.getRepository(Genre);
 
 export const getAllGenres = async () => {
   const genreRepository = getGenreRepository();
@@ -28,10 +29,8 @@ export const updateGenre = async (id: number, name: string) => {
   return await genreRepository.save(genre);
 };
 
-
 export const deleteGenre = async (id: number) => {
-    const genreRepository = getRepository(Genre);
-    const result = await genreRepository.delete(id);
-    return result; 
-  };
-  
+  const genreRepository = getGenreRepository();
+  const result = await genreRepository.delete(id);
+  return result; 
+};
