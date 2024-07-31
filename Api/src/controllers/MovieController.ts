@@ -56,7 +56,7 @@ export const updateMovie = async (req: Request, res: Response) => {
 export const deleteMovie = async (req: Request, res: Response) => {
   try {
     const result = await movieService.deleteMovie(Number(req.params.id));
-    if (result.affected === 1) { // Verificar o número de linhas afetadas
+    if (result.affected === 1) { 
       res.status(204).send();
     } else {
       res.status(404).send('Movie not found');

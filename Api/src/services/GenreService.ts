@@ -1,5 +1,5 @@
 import { Repository } from 'typeorm';
-import AppDataSource from '../data-source'; // Certifique-se de que o caminho está correto
+import AppDataSource from '../data-source'; 
 import { Genre } from '../models/Genre';
 
 const getGenreRepository = (): Repository<Genre> => AppDataSource.getRepository(Genre);

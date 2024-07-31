@@ -11,7 +11,7 @@ const getMovieRepository = (): Repository<Movie> => AppDataSource.getRepository(
 export const getAllRentals = async () => {
   const rentalRepository = getRentalRepository();
   return await rentalRepository.find({
-    relations: ['movie', 'movie.genre', 'customer'], // Incluir as relações com Movie, Genre e Customer
+    relations: ['movie', 'movie.genre', 'customer'], 
   });
 };
 
@@ -19,7 +19,7 @@ export const getRentalById = async (id: number) => {
   const rentalRepository = getRentalRepository();
   return await rentalRepository.findOne({
     where: { id },
-    relations: ['movie', 'movie.genre', 'customer'], // Incluir as relações com Movie, Genre e Customer
+    relations: ['movie', 'movie.genre', 'customer'], 
   });
 };
 

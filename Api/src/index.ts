@@ -6,15 +6,10 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
-
-// Inicializando a conexão com o banco de dados
 AppDataSource.initialize()
   .then(() => {
-    console.log('Connected to the database');
-
-    // Usando o roteador para definir as rotas
-    app.use(router); // Prefixo '/api' para as rotas
-
+    console.log('Connected to the database');    
+    app.use(router); 
     app.listen(port, () => {
       console.log(`Server running at http://localhost:${port}`);
     });
