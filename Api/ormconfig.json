@@ -5,7 +5,9 @@
   "username": "miguel",
   "password": "32412294",
   "database": "locadora",
-  "entities": ["src/models/*.ts"],
+  "entities": [
+    "src/models/*.ts"
+  ],
   "synchronize": true,
-  "logging": true
+  "logging": false
 }

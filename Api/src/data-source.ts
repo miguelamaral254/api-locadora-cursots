@@ -1,20 +1,14 @@
-
 import { DataSource } from 'typeorm';
-import { Movie } from './models/Movie';
-import { Rental } from './models/Rental';
-import { Genre } from './models/Genre';
-import { Customer } from './models/customer';
+import * as path from 'path';
+import * as fs from 'fs';
 
+// Lê o arquivo ormconfig.json
+const ormconfig = JSON.parse(fs.readFileSync(path.join(__dirname, '../ormconfig.json'), 'utf8'));
+
+// Configura o DataSource com a configuração lida
 const AppDataSource = new DataSource({
-  type: 'mysql',
-  host: 'localhost',
-  port: 3306,
-  username: 'miguel',
-  password: '32412294',
-  database: 'locadora',
-  entities: [Movie, Rental, Genre, Customer],
-  synchronize: true, 
-  //logging: true,
+  ...ormconfig,
+  entities: [path.join(__dirname, 'models', '*.ts')],
 });
 
 export default AppDataSource;
