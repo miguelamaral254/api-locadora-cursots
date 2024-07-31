@@ -6,7 +6,7 @@ export const getAllRentals = async (req: Request, res: Response) => {
     const rentals = await rentalService.getAllRentals();
     res.json(rentals);
   } catch (error) {
-    res.status(500).send('An error occurred');
+    res.status(500).send(error instanceof Error ? error.message : 'An unknown error occurred');
   }
 };
 
@@ -19,7 +19,7 @@ export const getRentalById = async (req: Request, res: Response) => {
       res.status(404).send('Rental not found');
     }
   } catch (error) {
-    res.status(500).send('An error occurred');
+    res.status(500).send(error instanceof Error ? error.message : 'An unknown error occurred');
   }
 };
 

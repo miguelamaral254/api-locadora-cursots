@@ -56,7 +56,7 @@ export const updateGenre = async (req: Request, res: Response) => {
 export const deleteGenre = async (req: Request, res: Response) => {
   try {
     const result = await genreService.deleteGenre(Number(req.params.id));
-    if (result.affected === 1) { // Verificar o número de linhas afetadas
+    if (result.affected === 1) { 
       res.status(204).send();
     } else {
       res.status(404).send('Genre not found');
